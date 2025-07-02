@@ -16,7 +16,7 @@ export const FavoritesProvider = ({ children }) => {
         try {
           const response = await apiRequest.get("/favorites", {
               headers: {
-    Authorization: `Bearer ${currentUser?.token}`,
+    Authorization: `Bearer ${currentUser.token}`,
   },
   withCredentials: true 
           });

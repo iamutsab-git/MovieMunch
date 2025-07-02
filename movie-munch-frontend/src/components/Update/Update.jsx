@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
       try {
         const res = await apiRequest.put(`/user/${currentUser._id}`, formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            
             Authorization: `Bearer ${currentUser?.token}`,
           },
           withCredentials: true,
