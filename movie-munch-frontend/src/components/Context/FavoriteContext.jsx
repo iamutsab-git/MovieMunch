@@ -40,7 +40,10 @@ export const FavoritesProvider = ({ children }) => {
       const response = await apiRequest.post("/favorites/add", {
         movieId: movie.id,
         movieData: movie,
-      }, {
+      },
+       {    headers: {
+      Authorization: `Bearer ${currentUser.token}`,
+    },
         withCredentials: true,
       });
       
