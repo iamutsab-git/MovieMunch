@@ -38,9 +38,9 @@ app.use("/api/movie",movieRoutes)
 
 
 
-mongoose.connect(process.env.MONGO_URL).then(()=>{
-    app.listen( process.env.PORT, 
-    console.log("Connected to DB & Server running on",process.env.PORT))
-}).catch(err => 
+mongoose.connect(process.env.MONGO_URL).then(()=>
+    // app.listen( process.env.PORT, 
+    console.log("Connected to DB "))
+.catch(err => 
     console.error(err)
-)
+);
