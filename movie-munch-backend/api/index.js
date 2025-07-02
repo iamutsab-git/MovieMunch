@@ -1,7 +1,3 @@
-import app from '../app.js';
-import { createServer } from 'http';
+import app from "../app.js";
 
-export default function handler(req, res) {
-  const server = createServer(app);
-  server.emit('request', req, res);
-}
+export default app;
