@@ -8,7 +8,7 @@ import { AuthContextProvider } from './components/Context/AuthContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename="/Movie-Munch">
+    <BrowserRouter>
     <AuthContextProvider>
     <FavoritesProvider>
     <App />
