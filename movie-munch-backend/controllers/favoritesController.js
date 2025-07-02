@@ -1,4 +1,4 @@
-import { send } from "vite";
+
 import User from "../models/userModel.js";
 
 const addFavoritesmovie = async(req, res)=>{
