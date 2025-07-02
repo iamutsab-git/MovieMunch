@@ -1,6 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import mongoose from 'mongoose'
+import { connectDB } from './lib/db.js'
 import userRoutes from "./routes/UserRoutes.js"
 import movieRoutes from "./routes/MovieRoute.js"
 import authRoutes from "./routes/authRoutes.js"
@@ -38,14 +38,8 @@ app.use("/api/movie",movieRoutes)
 
 
 
-mongoose.connect(process.env.MONGO_URL).then(()=>
-    console.log("Connected to DB "))
-.catch(err => 
-    console.error(err)
-);
-
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error("💥 Caught server error:", err);
-  res.status(500).json({ message: "Internal Server Error", error: err.message });
+connectDB().then(() => {
+  console.log('✅ MongoDB connected');
+}).catch(err => {
+  console.error('❌ MongoDB connection error:', err);
 });
