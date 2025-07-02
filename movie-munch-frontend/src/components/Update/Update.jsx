@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
   const Update = () => {
     const { currentUser,setCurrentUser, updateUser } = useContext(AuthContext);
     const [error, setError] = useState("");
+    const [preview, setPreview] = useState(currentUser.avatar);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
@@ -20,7 +21,7 @@ import { useNavigate } from "react-router-dom";
         const res = await apiRequest.put(`/user/${currentUser._id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${currentUser.token}`,
+            Authorization: `Bearer ${currentUser?.token}`,
           },
           withCredentials: true,
         });
@@ -31,7 +32,8 @@ import { useNavigate } from "react-router-dom";
        
         navigate("/profile");
       } catch (error) {
-        setError(error.res?.data?.msg || "Something went wrong");
+       setError(error.response?.data?.msg || "Something went wrong");
+
         console.log(error);
       } finally {
         setLoading(false);
@@ -54,7 +56,7 @@ import { useNavigate } from "react-router-dom";
                   <div className="mb-6 relative">
                     <img 
                     type="image/png"
-                      src={currentUser.avatar}
+                      src={preview}
                       alt="User Avatar"
                       className="w-32 h-32 rounded-full object-cover border-4 border-red-500 shadow-lg hover:border-red-600 transition duration-200"
                     />
@@ -73,6 +75,12 @@ import { useNavigate } from "react-router-dom";
                         name="avatar"
                         accept="image/png/jpeg/*"
                         className="hidden"
+                         onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+  }}
                       />
                     </div>
                   </div>

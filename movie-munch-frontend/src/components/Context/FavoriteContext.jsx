@@ -15,7 +15,10 @@ export const FavoritesProvider = ({ children }) => {
         setLoading(true);
         try {
           const response = await apiRequest.get("/favorites", {
-            withCredentials: true
+              headers: {
+    Authorization: `Bearer ${currentUser?.token}`,
+  },
+  withCredentials: true 
           });
           setFavorites(response.data); 
         } catch (error) {
@@ -42,7 +45,7 @@ export const FavoritesProvider = ({ children }) => {
         movieData: movie,
       },
        {    headers: {
-      Authorization: `Bearer ${currentUser.token}`,
+      Authorization: `Bearer ${currentUser?.token}`,
     },
         withCredentials: true,
       });
