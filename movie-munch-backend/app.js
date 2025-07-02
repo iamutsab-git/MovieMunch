@@ -36,6 +36,9 @@ app.use("/api/auth",authRoutes)
 
 app.use("/api/movie",movieRoutes)
 
+app.get("/", (req, res) => {
+  res.send("Movie Munch API is running!");
+});
 
 
 connectDB().then(() => {
