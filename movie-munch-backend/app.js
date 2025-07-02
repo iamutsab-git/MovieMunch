@@ -39,8 +39,13 @@ app.use("/api/movie",movieRoutes)
 
 
 mongoose.connect(process.env.MONGO_URL).then(()=>
-    // app.listen( process.env.PORT, 
     console.log("Connected to DB "))
 .catch(err => 
     console.error(err)
 );
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("💥 Caught server error:", err);
+  res.status(500).json({ message: "Internal Server Error", error: err.message });
+});
