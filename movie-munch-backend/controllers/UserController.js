@@ -47,7 +47,12 @@ const updateUserProfile = async (req, res) => {
         if (email) user.email = email;
         if (username) user.username = username;
       if (req.file) {
-  const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+  const baseUrl = process.env.NODE_ENV === "production" 
+  ? "https://movie-munch-api.vercel.app" 
+  : `${req.protocol}://${req.get("host")}`;
+
+const avatarUrl = `${baseUrl}/uploads/${req.file.filename}`;
+
   user.avatar = avatarUrl;
 };
        if (password && password.trim() !== "") {
