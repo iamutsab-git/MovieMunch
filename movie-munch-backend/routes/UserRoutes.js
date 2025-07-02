@@ -1,6 +1,5 @@
 import express from "express"
 import { deleteUser, getALLUser, getUserProfile, updateUserProfile } from "../controllers/UserController.js"
-import { verifyToken, verifyUser } from "../middleware/verifyToken.js"
 import multer from "multer";
 
 
@@ -17,9 +16,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.get("/:id",verifyToken, getUserProfile)
+router.get("/:id", getUserProfile)
 router.get("/",getALLUser)
-router.put("/:id",verifyUser,upload.single("avatar"), updateUserProfile)
+router.put("/:id",upload.single("avatar"), updateUserProfile)
 router.delete("/:id",deleteUser)
 
 
