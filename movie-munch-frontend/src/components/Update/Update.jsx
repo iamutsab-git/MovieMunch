@@ -57,6 +57,7 @@ import { useNavigate } from "react-router-dom";
                     <img 
                     type="image/png"
                       src={preview}
+                      name="avatar"
                       alt="User Avatar"
                       className="w-32 h-32 rounded-full object-cover border-4 border-red-500 shadow-lg hover:border-red-600 transition duration-200"
                     />
