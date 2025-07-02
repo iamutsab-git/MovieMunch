@@ -49,7 +49,7 @@ const updateUserProfile = async (req, res) => {
       if (req.file) {
         const avatarUrl = `https://movie-munch-api.vercel.app/uploads/${req.file.filename}`;
   user.avatar = avatarUrl;
-};
+}
        if (password && password.trim() !== "") {
     user.password = await bcrypt.hash(password, 10);
 };
