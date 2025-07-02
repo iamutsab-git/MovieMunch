@@ -63,6 +63,6 @@ export const getMovieDetails = async (movieId) => {
 };
 
 export const apiRequest = axios.create({
-    baseURL: "http://localhost:8800/api",
+    baseURL: "https://movie-munch-api.vercel.app/api",
     withCredentials: true,
 });
