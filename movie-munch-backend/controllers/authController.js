@@ -1,7 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import dotenv from "dotenv"
+dotenv.config()
 
 export const register = async(req, res)=>{
     const {username, email, password, avatar} = req.body ;
@@ -66,8 +67,7 @@ export const login = async (req, res) => {
     const {password:userPassword, ...userInfo} = user.toObject();
 
   
-    res
-      .cookie("token", token, {  // cookie-parser
+    res.cookie("token", token, {  // cookie-parser
         httpOnly: true,
         // secure: true
         maxAge: age
