@@ -1,10 +1,12 @@
-
 import User from "../models/userModel.js";
 
 const addFavoritesmovie = async(req, res)=>{
 try{
 const {movieId, movieData}= req.body;
 const user =await User.findById(req.userId);
+  if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
 
 const alreadyExist = user.favorites.some(fav=>fav.movieId === movieId)
 if(alreadyExist)
@@ -22,6 +24,10 @@ const getFavoritesmovie = async(req,res)=>{
 
     try{
         const user = await User.findById(req.userId);
+          if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
         res.json(user.favorites);
     }catch(error){
         res.status(400).json(error);

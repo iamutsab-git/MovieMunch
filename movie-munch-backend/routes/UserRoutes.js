@@ -1,6 +1,6 @@
 import express from "express"
 import { deleteUser, getALLUser, getUserProfile, updateUserProfile } from "../controllers/UserController.js"
-import { verifyToken, verifyUser } from "../middleware/verifyToken.js"
+import {  verifyUser } from "../middleware/verifyToken.js"
 import multer from "multer";
 
 
@@ -19,7 +19,7 @@ const upload = multer({ storage });
 
 router.get("/:id", getUserProfile)
 router.get("/",getALLUser)
-router.put("/:id",upload.single("avatar"), updateUserProfile)
+router.put("/:id",verifyUser,upload.single("avatar"), updateUserProfile)
 router.delete("/:id",deleteUser)
 
 

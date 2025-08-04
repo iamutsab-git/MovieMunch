@@ -7,9 +7,9 @@ export const register = async(req, res)=>{
     const {username, email, password, avatar} = req.body ;
 
     try{
-        const existingUSer = await User.findOne({$or: [{email}, {username}]});
-        if(existingUSer){
-            return res.status(400).json({message: `$(User.username) already exist`});
+        const existingUser = await User.findOne({$or: [{email}, {username}]});
+        if(existingUser){
+            return res.status(400).json({message: `${username} already exist`});
         }
 //Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
