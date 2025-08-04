@@ -7,7 +7,7 @@ A Full stack sleek and simple web app for searching movies using the TMDB API. B
 ## 🔗 Live Demo
 
 Check out the live site here:  
-👉 [Movie Munch on GitHub Pages](https://iamutsab-git.github.io/Movie-Munch)
+👉 [Movie Munch on GitHub Pages](https://movie-munch.onrender.com/)
 
 ---
 
