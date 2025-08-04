@@ -15,7 +15,7 @@ export const FavoritesProvider = ({ children }) => {
         setLoading(true);
         try {
           const response = await apiRequest.get("/favorites", {
-            withCredentials: true
+            withCredentials: true,
           });
           setFavorites(response.data); 
         } catch (error) {

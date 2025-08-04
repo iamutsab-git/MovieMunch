@@ -34,39 +34,47 @@ const getUserProfile = async (req, res) => {
 };
 
 // Update user profile
+
+
 const updateUserProfile = async (req, res) => {
-    try {
-        const { email, username, avatar, password } = req.body;
-        const user = await User.findById(req.params.id);
+  try {
+    const { email, username, password } = req.body;
+    const user = await User.findById(req.params.id);
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Update fields
-        if (email) user.email = email;
-        if (username) user.username = username;
-      if (req.file) {
-  const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
-  user.avatar = avatarUrl;
-};
-       if (password && password.trim() !== "") {
-    user.password = await bcrypt.hash(password, 10);
-};
-
-        await user.save();
-        res.json({ message: 'Profile updated successfully',
-            user: {
-                _id: user._id,
-                email: user.email,
-                username: user.username,
-                avatar: user.avatar,
-            },
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    if (email) user.email = email;
+    if (username) user.username = username;
+
+    if (req.file) {
+      const avatarUrl = `${process.env.SERVER_URL}/uploads/${req.file.filename}`;
+      user.avatar = avatarUrl;
+    }
+
+    if (password && password.trim() !== "") {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    await user.save();
+
+    res.json({
+      message: 'Profile updated successfully',
+      user: {
+        _id: user._id,
+        email: user.email,
+        username: user.username,
+        avatar: user.avatar,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
 };
+
+export default updateUserProfile;
+
 
 // Delete user
 const deleteUser = async (req, res) => {
