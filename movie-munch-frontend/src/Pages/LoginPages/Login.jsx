@@ -27,6 +27,8 @@ const Login = () => {
         const res = await apiRequest.post("/auth/login", {
           username,
           password,
+        },{
+          withCredentials: true, 
         });
         updateUser(res.data)
         

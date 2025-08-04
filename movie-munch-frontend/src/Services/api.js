@@ -2,6 +2,12 @@ import axios from "axios"
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+
+export const apiRequest = axios.create({
+    baseURL: import.meta.env.VITE_BACKEND_URI,
+    withCredentials: true,
+});
+
 export const getPopularMovies = async () => {
   const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
   const data = await response.json();
@@ -62,7 +68,3 @@ export const getMovieDetails = async (movieId) => {
   return data;
 };
 
-export const apiRequest = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URI,
-    withCredentials: true,
-});
