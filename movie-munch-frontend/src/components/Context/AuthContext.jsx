@@ -1,27 +1,36 @@
-import { createContext, useEffect, useState } from "react";
-
+import { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
 
-export const AuthContextProvider = ({children})=>{
+export const AuthContextProvider = ({ children }) => {
+  // Initialize currentUser from localStorage, default to null if not found
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) : null;
+    } catch (error) {
+      console.error('Error parsing user from localStorage:', error);
+      return null;
+    }
+  });
 
+  // Update user state
+  const updateUser = (data) => {
+    setCurrentUser(data);
+  };
 
-    const [currentUser, setCurrentUser] = useState(
-        JSON.parse(localStorage.getItem("user") || null )
-    );
+  // Sync currentUser with localStorage
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem('user', JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [currentUser]);
 
-    const updateUser = (data)=> {
-        setCurrentUser(data);
-    };
-
-    useEffect(()=>{
-        localStorage.setItem("user", JSON.stringify(currentUser))
-    },[currentUser])
-
-
-return(
-    <AuthContext.Provider value={{currentUser,setCurrentUser, updateUser}}>
-    {children}
+  return (
+    <AuthContext.Provider value={{ currentUser, setCurrentUser, updateUser }}>
+      {children}
     </AuthContext.Provider>
-)
-}
+  );
+};
